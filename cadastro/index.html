@@ -5,36 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minha Loja + | EU+ Negócio</title>
   <style>
-    /* Mesmo estilo premium anterior */
-    body { margin:0; font-family:'Inter',sans-serif; background:linear-gradient(135deg, #0A1428 0%, #05080F 100%); color:#fff; min-height:100vh; }
-    .container { max-width:620px; margin:40px auto; padding:50px 40px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.25); border-radius:24px; }
-    /* ... (manter o estilo que já estava bom) */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+    
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0A1428 0%, #05080F 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 580px;
+      margin: 40px auto;
+      padding: 40px 35px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 24px;
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.12);
+    }
+    .logo-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    .logo-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      letter-spacing: -2px;
+    }
+    .logo-header .plus { color: #D4AF37; font-size: 52px; }
+    .logo-header .sub { font-size: 20px; color: #D4AF37; margin-top: 4px; letter-spacing: 2px; }
+    h2 { text-align: center; color: #D4AF37; margin-bottom: 8px; font-size: 26px; }
+    .form-group { margin-bottom: 24px; }
+    label { display: block; margin-bottom: 8px; color: #D4AF37; font-weight: 500; font-size: 15px; }
+    input, select {
+      width: 100%;
+      padding: 15px 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(90deg, #D4AF37, #B8972E);
+      color: #000;
+      font-weight: 700;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4); }
   </style>
 </head>
 <body>
   <div class="container">
-    <div style="text-align:center; margin-bottom:30px;">
-      <h1 style="font-size:52px; margin:0;">EU<span style="color:#D4AF37">+</span></h1>
-      <h2 style="color:#D4AF37; margin:5px 0 20px 0;">NEGÓCIO - Minha Loja +</h2>
+    <div class="logo-header">
+      <h1>EU<span class="plus">+</span> NEGÓCIO</h1>
+      <div class="sub">Minha Loja +</div>
     </div>
+    
+    <h2>Crie sua loja agora</h2>
+    <p style="text-align:center; color:#bbb; margin-bottom:35px;">Eficiência intelectual para quem opera com seriedade.</p>
 
     <form id="cadastroForm">
-      <input type="text" id="nomeLoja" placeholder="Nome da Loja" required style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
-      <input type="text" id="responsavel" placeholder="Nome do Responsável" required style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
-      
-      <select id="segmento" style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
-        <option value="">Selecione o segmento...</option>
-        <option>Brechó / Roupas Usadas</option>
-        <option>Loja de Roupas</option>
-        <!-- ... outros segmentos -->
-      </select>
+      <div class="form-group">
+        <label>Nome da Loja *</label>
+        <input type="text" id="nomeLoja" placeholder="Virtuosas Brechó +" required>
+      </div>
+      <div class="form-group">
+        <label>Nome do Responsável *</label>
+        <input type="text" id="responsavel" placeholder="Cristiane Minho" required>
+      </div>
+      <div class="form-group">
+        <label>Segmento de Atuação *</label>
+        <select id="segmento" required>
+          <option value="">Selecione o segmento...</option>
+          <option>Brechó / Roupas Usadas</option>
+          <option>Loja de Roupas</option>
+          <option>Calçados</option>
+          <option>Mercearia / Minimercado</option>
+          <option>Acessórios</option>
+          <option>Cosméticos</option>
+          <option>Alimentos</option>
+          <option>Eletrônicos</option>
+          <option>Móveis e Decoração</option>
+          <option>Beleza e Estética</option>
+          <option>Infantil</option>
+          <option>Esportes</option>
+          <option>Pet Shop</option>
+          <option>Livraria</option>
+          <option>Suplementos</option>
+          <option>Outros</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>WhatsApp para Gestão *</label>
+        <input type="tel" id="whatsapp" placeholder="(51) 98226-4855" required>
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" id="email" placeholder="contato@exemplo.com">
+      </div>
 
-      <input type="tel" id="whatsapp" placeholder="WhatsApp (com DDD)" required style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
-      <input type="email" id="email" placeholder="E-mail" style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
-
-      <button type="button" onclick="enviarCadastro()" style="width:100%; padding:18px; background:#D4AF37; color:#000; font-weight:bold; border:none; border-radius:10px; margin-top:20px;">
-        CRIAR MINHA LOJA + (Premium Trial 7 dias)
-      </button>
+      <button type="button" onclick="enviarCadastro()">FINALIZAR CADASTRO E INICIAR MINHA LOJA + (Premium Trial)</button>
     </form>
   </div>
 
@@ -51,26 +131,28 @@
       };
 
       if (!dados.nomeLoja || !dados.responsavel || !dados.whatsapp) {
-        alert("Preencha os campos obrigatórios!");
+        alert("Por favor, preencha os campos obrigatórios (*)");
         return;
       }
 
       fetch(WEB_APP_URL, {
         method: 'POST',
         body: JSON.stringify(dados),
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" }
       })
-      .then(res => res.json())
+      .then(response => response.json())
       .then(result => {
         if (result.sucesso) {
-          alert(`✅ Loja criada com sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}\n\nGuarde estas informações!`);
-          // Redirecionar para a loja
+          alert(`✅ Parabéns! Sua loja foi criada com sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}\n\nGuarde essas informações.`);
           window.location.href = "https://eumaisempresa.github.io/minhalojamais/";
         } else {
           alert("Erro: " + result.mensagem);
         }
       })
-      .catch(err => alert("Erro de conexão. Tente novamente."));
+      .catch(err => {
+        console.error(err);
+        alert("Erro de conexão. Verifique se o Web App está publicado corretamente.");
+      });
     }
   </script>
 </body>
