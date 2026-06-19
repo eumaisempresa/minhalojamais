@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Loja + | EU+ Negócio</title>
+  <style>
+    /* Mesmo estilo premium anterior */
+    body { margin:0; font-family:'Inter',sans-serif; background:linear-gradient(135deg, #0A1428 0%, #05080F 100%); color:#fff; min-height:100vh; }
+    .container { max-width:620px; margin:40px auto; padding:50px 40px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.25); border-radius:24px; }
+    /* ... (manter o estilo que já estava bom) */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="text-align:center; margin-bottom:30px;">
+      <h1 style="font-size:52px; margin:0;">EU<span style="color:#D4AF37">+</span></h1>
+      <h2 style="color:#D4AF37; margin:5px 0 20px 0;">NEGÓCIO - Minha Loja +</h2>
+    </div>
+
+    <form id="cadastroForm">
+      <input type="text" id="nomeLoja" placeholder="Nome da Loja" required style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
+      <input type="text" id="responsavel" placeholder="Nome do Responsável" required style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
+      
+      <select id="segmento" style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
+        <option value="">Selecione o segmento...</option>
+        <option>Brechó / Roupas Usadas</option>
+        <option>Loja de Roupas</option>
+        <!-- ... outros segmentos -->
+      </select>
+
+      <input type="tel" id="whatsapp" placeholder="WhatsApp (com DDD)" required style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
+      <input type="email" id="email" placeholder="E-mail" style="width:100%; padding:14px; margin:10px 0; background:rgba(255,255,255,0.08); border:1px solid #D4AF37; border-radius:8px; color:white;">
+
+      <button type="button" onclick="enviarCadastro()" style="width:100%; padding:18px; background:#D4AF37; color:#000; font-weight:bold; border:none; border-radius:10px; margin-top:20px;">
+        CRIAR MINHA LOJA + (Premium Trial 7 dias)
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw2BKLWq6LK42HEOxNWGOk3YWo2DLgtGPY-anMcH88f5AU-mLsL2I6DF86eBK0BJas6/exec";
+
+    function enviarCadastro() {
+      const dados = {
+        nomeLoja: document.getElementById('nomeLoja').value.trim(),
+        responsavel: document.getElementById('responsavel').value.trim(),
+        segmento: document.getElementById('segmento').value,
+        whatsapp: document.getElementById('whatsapp').value.trim(),
+        email: document.getElementById('email').value.trim()
+      };
+
+      if (!dados.nomeLoja || !dados.responsavel || !dados.whatsapp) {
+        alert("Preencha os campos obrigatórios!");
+        return;
+      }
+
+      fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify(dados),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(result => {
+        if (result.sucesso) {
+          alert(`✅ Loja criada com sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}\n\nGuarde estas informações!`);
+          // Redirecionar para a loja
+          window.location.href = "https://eumaisempresa.github.io/minhalojamais/";
+        } else {
+          alert("Erro: " + result.mensagem);
+        }
+      })
+      .catch(err => alert("Erro de conexão. Tente novamente."));
+    }
+  </script>
+</body>
+</html>
