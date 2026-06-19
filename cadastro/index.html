@@ -35,19 +35,45 @@
       margin: 0;
       letter-spacing: -2px;
     }
-    .logo-header .plus { color: #D4AF37; font-size: 52px; }
-    .logo-header .sub { font-size: 20px; color: #D4AF37; margin-top: 4px; letter-spacing: 2px; }
-    h2 { text-align: center; color: #D4AF37; margin-bottom: 8px; font-size: 26px; }
-    .form-group { margin-bottom: 24px; }
-    label { display: block; margin-bottom: 8px; color: #D4AF37; font-weight: 500; font-size: 15px; }
+    .logo-header .plus {
+      color: #D4AF37;
+      font-size: 52px;
+    }
+    .logo-header .sub {
+      font-size: 20px;
+      color: #D4AF37;
+      margin-top: 4px;
+      letter-spacing: 2px;
+    }
+    h2 {
+      text-align: center;
+      color: #D4AF37;
+      margin-bottom: 8px;
+      font-size: 26px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #D4AF37;
+      font-weight: 500;
+      font-size: 15px;
+    }
     input, select {
       width: 100%;
       padding: 15px 18px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       border-radius: 10px;
       color: #fff;
       font-size: 16px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
     }
     button {
       width: 100%;
@@ -60,8 +86,18 @@
       border-radius: 10px;
       cursor: pointer;
       margin-top: 10px;
+      transition: all 0.3s;
     }
-    button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4); }
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+    }
+    .footer {
+      text-align: center;
+      margin-top: 45px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
@@ -79,10 +115,12 @@
         <label>Nome da Loja *</label>
         <input type="text" id="nomeLoja" placeholder="Virtuosas Brechó +" required>
       </div>
+
       <div class="form-group">
         <label>Nome do Responsável *</label>
         <input type="text" id="responsavel" placeholder="Cristiane Minho" required>
       </div>
+
       <div class="form-group">
         <label>Segmento de Atuação *</label>
         <select id="segmento" required>
@@ -105,20 +143,31 @@
           <option>Outros</option>
         </select>
       </div>
+
       <div class="form-group">
         <label>WhatsApp para Gestão *</label>
         <input type="tel" id="whatsapp" placeholder="(51) 98226-4855" required>
       </div>
+
       <div class="form-group">
         <label>E-mail</label>
         <input type="email" id="email" placeholder="contato@exemplo.com">
       </div>
 
-      <button type="button" onclick="enviarCadastro()">FINALIZAR CADASTRO E INICIAR MINHA LOJA + (Premium Trial)</button>
+      <button type="button" onclick="enviarCadastro()">
+        FINALIZAR CADASTRO E INICIAR MINHA LOJA + (Premium Trial 7 dias)
+      </button>
     </form>
+
+    <div class="footer">
+      Você é o EU. Nós somos o + que soma com você.<br>
+      <a href="https://www.eumaisempresa.com.br/" target="_blank">www.eumaisempresa.com.br</a><br>
+      © 2026 EU+ Negócio
+    </div>
   </div>
 
   <script>
+    // ←←← ATUALIZE ESTA LINHA COM O SEU NOVO URL DO WEB APP ←←←
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw2BKLWq6LK42HEOxNWGOk3YWo2DLgtGPY-anMcH88f5AU-mLsL2I6DF86eBK0BJas6/exec";
 
     function enviarCadastro() {
@@ -143,15 +192,15 @@
       .then(response => response.json())
       .then(result => {
         if (result.sucesso) {
-          alert(`✅ Parabéns! Sua loja foi criada com sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}\n\nGuarde essas informações.`);
+          alert(`✅ Loja criada com sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}\n\nGuarde estas informações!`);
           window.location.href = "https://eumaisempresa.github.io/minhalojamais/";
         } else {
-          alert("Erro: " + result.mensagem);
+          alert("Erro: " + (result.mensagem || "Tente novamente"));
         }
       })
       .catch(err => {
         console.error(err);
-        alert("Erro de conexão. Verifique se o Web App está publicado corretamente.");
+        alert("Erro de conexão.\n\nVerifique se o Web App foi implantado como 'Qualquer pessoa'.");
       });
     }
   </script>
