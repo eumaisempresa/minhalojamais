@@ -46,17 +46,15 @@
     input, select {
       width: 100%;
       padding: 15px 18px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(212, 175, 55, 0.4);
+      background: rgba(255,255,255,0.12);
+      border: 1px solid #D4AF37;
       border-radius: 10px;
       color: #fff;
       font-size: 16px;
     }
-    select { color: #fff; }
-    input:focus, select:focus {
-      outline: none;
-      border-color: #D4AF37;
-      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+    select option {
+      background: #0A1428;
+      color: #fff;
     }
 
     button {
@@ -184,7 +182,7 @@
       })
       .catch(err => {
         console.error(err);
-        alert("Erro de conexão.\n\nVerifique se o Web App foi implantado como 'Qualquer pessoa'.");
+        alert("Erro de conexão.\n\n1. Verifique se o Web App foi implantado como 'Qualquer pessoa'\n2. Tente reimplantar novamente.");
       });
     }
   </script>
