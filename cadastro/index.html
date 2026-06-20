@@ -7,77 +7,25 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
     
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0A1428 0%, #05080F 100%);
-      color: #fff;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 580px;
-      margin: 40px auto;
-      padding: 40px 35px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 24px;
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.12);
-    }
-    .logo-header {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-    .logo-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 48px;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      letter-spacing: -2px;
-    }
-    .logo-header .plus { color: #D4AF37; font-size: 52px; }
-    .logo-header .sub { font-size: 20px; color: #D4AF37; margin-top: 4px; letter-spacing: 2px; }
-
-    h2 { text-align: center; color: #D4AF37; margin-bottom: 8px; font-size: 26px; }
-
-    .form-group { margin-bottom: 24px; }
-    label { display: block; margin-bottom: 8px; color: #D4AF37; font-weight: 500; font-size: 15px; }
-
+    body { margin:0; font-family:'Inter',sans-serif; background:linear-gradient(135deg,#0A1428 0%,#05080F 100%); color:#fff; min-height:100vh; }
+    .container { max-width:580px; margin:40px auto; padding:40px 35px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.25); border-radius:24px; box-shadow:0 0 50px rgba(212,175,55,0.12); }
+    .logo-header { text-align:center; margin-bottom:35px; }
+    .logo-header h1 { font-family:'Playfair Display',serif; font-size:48px; font-weight:700; color:#fff; margin:0; letter-spacing:-2px; }
+    .logo-header .plus { color:#D4AF37; font-size:52px; }
+    .logo-header .sub { font-size:20px; color:#D4AF37; margin-top:4px; letter-spacing:2px; }
+    h2 { text-align:center; color:#D4AF37; margin-bottom:8px; font-size:26px; }
+    .form-group { margin-bottom:24px; }
+    label { display:block; margin-bottom:8px; color:#D4AF37; font-weight:500; font-size:15px; }
     input, select {
-      width: 100%;
-      padding: 15px 18px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid #D4AF37;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 16px;
+      width:100%; padding:15px 18px; background:rgba(255,255,255,0.12); border:1px solid #D4AF37; border-radius:10px; color:#fff; font-size:16px;
     }
-    select option { background: #0A1428; color: #fff; }
-
+    select option { background:#0A1428; color:#fff; }
     button {
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(90deg, #D4AF37, #B8972E);
-      color: #000;
-      font-weight: 700;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 10px;
+      width:100%; padding:18px; background:linear-gradient(90deg,#D4AF37,#B8972E); color:#000; font-weight:700; font-size:18px; border:none; border-radius:10px; cursor:pointer; margin-top:10px;
     }
-    button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 45px;
-      font-size: 15px;
-      color: #D4AF37;
-    }
-    .footer a { color: #fff; text-decoration: underline; }
+    button:hover { transform:translateY(-3px); box-shadow:0 12px 25px rgba(212,175,55,0.4); }
+    .footer { text-align:center; margin-top:45px; font-size:15px; color:#D4AF37; }
+    .footer a { color:#fff; text-decoration:underline; }
   </style>
 </head>
 <body>
@@ -95,12 +43,10 @@
         <label>Nome da Loja *</label>
         <input type="text" id="nomeLoja" placeholder="Coloque o nome da sua loja" required>
       </div>
-
       <div class="form-group">
         <label>Nome do Responsável *</label>
         <input type="text" id="responsavel" placeholder="Seu Nome Completo" required>
       </div>
-
       <div class="form-group">
         <label>Segmento de Atuação *</label>
         <select id="segmento" required>
@@ -123,20 +69,16 @@
           <option>Outros</option>
         </select>
       </div>
-
       <div class="form-group">
         <label>WhatsApp para Gestão *</label>
         <input type="tel" id="whatsapp" placeholder="(51) 98226-4855" required>
       </div>
-
       <div class="form-group">
         <label>E-mail</label>
         <input type="email" id="email" placeholder="contato@exemplo.com">
       </div>
 
-      <button type="button" onclick="enviarCadastro()">
-        FINALIZAR CADASTRO E INICIAR MINHA LOJA + (Premium Trial 7 dias)
-      </button>
+      <button type="button" onclick="enviarCadastro()">FINALIZAR CADASTRO E INICIAR MINHA LOJA + (Premium Trial 7 dias)</button>
     </form>
 
     <div class="footer">
@@ -159,7 +101,7 @@
       };
 
       if (!dados.nomeLoja || !dados.responsavel || !dados.whatsapp) {
-        alert("Por favor, preencha os campos obrigatórios (*)");
+        alert("Preencha os campos obrigatórios (*)");
         return;
       }
 
@@ -168,19 +110,16 @@
         body: JSON.stringify(dados),
         headers: { "Content-Type": "application/json" }
       })
-      .then(response => response.json())
+      .then(r => r.json())
       .then(result => {
         if (result.sucesso) {
-          alert(`✅ Loja criada com sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}\n\nGuarde estas informações!`);
+          alert(`✅ Sucesso!\n\nID: ${result.idCliente}\nSenha: ${result.senha}`);
           window.location.href = "https://eumaisempresa.github.io/minhalojamais/admin.html";
         } else {
-          alert("Erro: " + (result.mensagem || "Tente novamente"));
+          alert("Erro: " + result.mensagem);
         }
       })
-      .catch(err => {
-        console.error(err);
-        alert("Erro de conexão.\n\nTente reimplantar o Web App como 'Qualquer pessoa'.");
-      });
+      .catch(() => alert("Erro de conexão. Tente criar uma NOVA implantação."));
     }
   </script>
 </body>
