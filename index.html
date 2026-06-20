@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><span id="storeNameTitle"></span> - Catálogo</title>
+  <title id="pageTitle">Minha Loja + - Catálogo</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
     
@@ -46,7 +46,7 @@
     <div class="header-content">
       <div>
         <div class="logo">EU<span class="plus">+</span> NEGÓCIO</div>
-        <div class="client-name" id="storeName"></div>
+        <div class="client-name" id="storeName">Nome da Loja</div>
       </div>
       <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Buscar (ex: vest 34)" onkeyup="filterProducts()">
     </div>
@@ -99,29 +99,29 @@
   </div>
 
   <footer style="background:#0A1428; color:#D4AF37; text-align:center; padding:25px 20px; margin-top:60px;" id="footerInfo">
-    <!-- Será preenchido dinamicamente -->
+    Nome da Loja • Endereço<br>
+    Telefone • Instagram<br>
+    Powered by EU+ Negócio
   </footer>
 
   <script>
-    // === CONFIGURAÇÃO DINÂMICA (será preenchida pelo Apps Script) ===
+    // Configuração dinâmica (será preenchida pelo Apps Script)
     const storeConfig = {
       name: "Nome da Loja",
       phone: "(51) 98226-4855",
       pix: "27997161826",
-      address: "Rua Chaves Barcelos, 278 - São Luís",
-      instagram: "@virtuosasbrecho"
+      address: "Rua Chaves Barcelos, 278 - São Luís"
     };
 
-    // Atualiza nome e rodapé
+    // Atualiza nome da loja e rodapé
     document.getElementById('storeName').textContent = storeConfig.name;
-    document.getElementById('storeNameTitle').textContent = storeConfig.name;
+    document.getElementById('pageTitle').textContent = storeConfig.name + " - Catálogo";
     document.getElementById('footerInfo').innerHTML = `
       ${storeConfig.name} • ${storeConfig.address}<br>
-      ${storeConfig.phone} • ${storeConfig.instagram}<br>
-      Powered by EU+ Negócio
+      ${storeConfig.phone} • Powered by EU+ Negócio
     `;
 
-    // Resto do código (produtos, carrinho, etc.) permanece o mesmo
+    // Produtos fictícios para teste
     const products = [];
     for (let i = 1; i <= 50; i++) {
       products.push({
@@ -147,7 +147,90 @@
       document.getElementById('cart-count').textContent = total;
     }
 
-    // ... (o resto do código de produtos, carrinho, filtros permanece igual ao anterior)
+    function renderProducts(filtered) {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      filtered.forEach(p => {
+        const inCart = cart.find(c => c.id === p.id);
+        const qty = inCart ? inCart.quantity : 0;
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${p.img}" class="product-image">
+          <div class="product-info">
+            <h3 class="product-name">${p.name}</h3>
+            <p>Tam: ${p.size}</p>
+            <p class="stock">Estoque: ${p.stock} unid.</p>
+            <p class="price">R$ ${p.price},00</p>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeProductQty(${p.id}, -1); event.stopImmediatePropagation()">–</button>
+              <span style="font-weight:600; min-width:24px; text-align:center;">${qty}</span>
+              <button class="qty-btn" onclick="changeProductQty(${p.id}, 1); event.stopImmediatePropagation()">+</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function changeProductQty(id, change) {
+      const product = products.find(p => p.id === id);
+      let item = cart.find(c => c.id === id);
+
+      if (!item) {
+        if (change <= 0) return;
+        item = {...product, quantity: 0, reservaId: "RES-" + String(1000 + Math.floor(Math.random()*9000))};
+        cart.push(item);
+      }
+
+      item.quantity = Math.max(0, (item.quantity || 0) + change);
+      if (item.quantity > product.stock) item.quantity = product.stock;
+      if (item.quantity === 0) cart = cart.filter(c => c.id !== id);
+
+      saveCart();
+      renderProducts(products);
+    }
+
+    function showCartModal() {
+      if (cart.length === 0) return alert("Carrinho vazio!");
+      let html = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        const subtotal = item.price * (item.quantity || 1);
+        total += subtotal;
+        html += `
+          <div style="margin:15px 0; padding:15px; border-bottom:1px solid #eee;">
+            <div style="display:flex; justify-content:space-between;">
+              <div>
+                <strong>${item.name}</strong><br>
+                Tam: ${item.size}<br>
+                <small style="color:#D4AF37;">Reserva: ${item.reservaId}</small>
+              </div>
+              <div style="text-align:right;">
+                <button onclick="changeCartQty(${index}, -1)" style="margin:0 5px;">–</button>
+                <span style="font-weight:600;">${item.quantity || 1}</span>
+                <button onclick="changeCartQty(${index}, 1)" style="margin:0 5px;">+</button>
+              </div>
+            </div>
+            <div style="margin-top:8px; color:#D4AF37;">R$ ${subtotal},00</div>
+          </div>`;
+      });
+
+      document.getElementById('cartItems').innerHTML = html;
+      document.getElementById('cartTotal').innerHTML = `R$ ${total},00`;
+      document.getElementById('cartModal').style.display = 'flex';
+    }
+
+    function changeCartQty(index, change) {
+      const item = cart[index];
+      const product = products.find(p => p.id === item.id);
+      item.quantity = Math.max(0, (item.quantity || 1) + change);
+      if (item.quantity > product.stock) item.quantity = product.stock;
+      if (item.quantity === 0) cart.splice(index, 1);
+      showCartModal();
+      saveCart();
+    }
 
     function copyPix() {
       navigator.clipboard.writeText(storeConfig.pix);
@@ -158,15 +241,12 @@
       const payment = document.getElementById('paymentMethod').value;
       let msg = `Olá ${storeConfig.name}! Gostaria de confirmar as seguintes reservas:\n\n`;
       let total = 0;
-
       cart.forEach(item => {
         const qtd = item.quantity || 1;
         msg += `- ${item.name} (Tam: ${item.size}) x${qtd} - Reserva ${item.reservaId} - R$ ${item.price * qtd},00\n`;
         total += item.price * qtd;
       });
-
       msg += `\nTotal: R$ ${total},00\nForma de Pagamento: ${payment}`;
-
       window.open(`https://wa.me/${storeConfig.phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`);
       closeCartModal();
       cart = [];
@@ -174,8 +254,30 @@
       renderProducts(products);
     }
 
-    // Manter as funções restantes (renderProducts, changeProductQty, etc.) do código anterior
-    // ... (copie o resto do script do modelo anterior que você aprovou)
+    function closeCartModal() {
+      document.getElementById('cartModal').style.display = 'none';
+    }
+
+    function filterCategory(cat) {
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+      renderProducts(filtered);
+    }
+
+    function filterProducts() {
+      const term = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!term) {
+        renderProducts(products);
+        return;
+      }
+      const terms = term.split(/\s+/);
+      const filtered = products.filter(p => {
+        const text = (p.name + " " + p.size).toLowerCase();
+        return terms.every(t => text.includes(t));
+      });
+      renderProducts(filtered);
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       renderProducts(products);
